@@ -44,7 +44,8 @@ editMenu(){
 }
 
 editUserDetail(){
-  this.dialog.open(DialogEditUserComponent);
+  const dialogUser = this.dialog.open(DialogEditUserComponent);
+  dialogUser.componentInstance.user = this.user;
 }
 
 }
