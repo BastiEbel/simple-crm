@@ -17,8 +17,8 @@ export class UserDetailComponent implements OnInit {
   userId = '';
   user: User = new User();
 
-  constructor(private route: ActivatedRoute, 
-    private firestore: AngularFirestore, 
+  constructor(private route: ActivatedRoute,
+    private firestore: AngularFirestore,
     public dialog: MatDialog) { }
 
   ngOnInit(): void {
@@ -29,25 +29,27 @@ export class UserDetailComponent implements OnInit {
   }
 
   getUser() {
-    this.firestore
-    .collection('users')
-    .doc(this.userId)
-    .valueChanges()
-    .subscribe((user: any) => {
-      this.user = new User(user);
-    });
+    if (this.userId) {
+      this.firestore
+        .collection('users')
+        .doc(this.userId)
+        .valueChanges()
+        .subscribe((user: any) => {
+          this.user = new User(user);
+        });
+    }
   }
 
-editMenu(){
-  const dialog = this.dialog.open(DialogEditAddressComponent);
-  dialog.componentInstance.user = new User(this.user.toJSON());
-  dialog.componentInstance.userId = this.userId;
-}
+  editMenu() {
+    const dialog = this.dialog.open(DialogEditAddressComponent);
+    dialog.componentInstance.user = new User(this.user.toJSON());
+    dialog.componentInstance.userId = this.userId;
+  }
 
-editUserDetail(){
-  const dialogUser = this.dialog.open(DialogEditUserComponent);
-  dialogUser.componentInstance.user = new User(this.user.toJSON());
-  dialogUser.componentInstance.userId = this.userId;
-}
+  editUserDetail() {
+    const dialogUser = this.dialog.open(DialogEditUserComponent);
+    dialogUser.componentInstance.user = new User(this.user.toJSON());
+    dialogUser.componentInstance.userId = this.userId;
+  }
 
 }

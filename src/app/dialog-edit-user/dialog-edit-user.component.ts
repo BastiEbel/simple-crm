@@ -10,7 +10,7 @@ import { User } from 'src/models/user.class';
 })
 export class DialogEditUserComponent implements OnInit {
 
-  user: User;
+  user: User = new User();
   loading = false;
   birthDate: Date;
   userId: string;
@@ -22,6 +22,7 @@ export class DialogEditUserComponent implements OnInit {
 
   saveUser() {
     this.loading = true;
+    if(this.userId) {
     this.firestore
       .collection('users')
       .doc(this.userId)
@@ -30,5 +31,6 @@ export class DialogEditUserComponent implements OnInit {
         this.loading = false;
         this.dialogRef.close();
       });
+    }
   }
 }
