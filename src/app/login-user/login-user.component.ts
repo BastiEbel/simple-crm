@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { RegisterLoginComponent } from '../register-login/register-login.component';
 
 @Component({
   selector: 'app-login-user',
@@ -8,10 +10,13 @@ import { Component, OnInit } from '@angular/core';
 export class LoginUserComponent implements OnInit {
 
   hide = true;
-  
-  constructor() { }
+
+  constructor(public dialog: MatDialog) { }
 
   ngOnInit(): void {
   }
 
+  openDialog(){
+    this.dialog.open(RegisterLoginComponent);
+  }
 }

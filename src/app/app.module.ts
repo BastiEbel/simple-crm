@@ -27,6 +27,7 @@ import {MatMenuModule} from '@angular/material/menu';
 import { DialogEditAddressComponent } from './dialog-edit-address/dialog-edit-address.component';
 import { DialogEditUserComponent } from './dialog-edit-user/dialog-edit-user.component';
 import { LoginUserComponent } from './login-user/login-user.component';
+import { RegisterLoginComponent } from './register-login/register-login.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { LoginUserComponent } from './login-user/login-user.component';
     UserDetailComponent,
     DialogEditAddressComponent,
     DialogEditUserComponent,
-    LoginUserComponent
+    LoginUserComponent,
+    RegisterLoginComponent
   ],
   imports: [
     BrowserModule,

@@ -13,7 +13,7 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.loginActiv = true;
-     this.router.navigateByUrl('/login');
+    /* this.loginActiv = true;
+     this.router.navigateByUrl('/login'); */
   }
 }
