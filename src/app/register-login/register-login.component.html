@@ -3,27 +3,36 @@
     <h1 mat-dialog-title>Register</h1>
     <div mat-dialog-content>
         <div class="register-name">
+            
             <mat-form-field appearance="outline" class="full-width">
                 <mat-label>User Name *</mat-label>
                 <input [disabled]="loading" [(ngModel)]="registry.userName" matInput placeholder="User Name">
                 <!-- <mat-hint>Please enter a name</mat-hint> -->
             </mat-form-field>
+            <form [formGroup]="myForm">
             <mat-form-field appearance="outline" class="full-width">
                 <mat-label>Enter your password</mat-label>
-                <input [disabled]="loading" [(ngModel)]="registry.password" matInput
+                <input [disabled]="loading" [(ngModel)]="registry.password" formControlName="password" matInput
                     [type]="hide ? 'password' : 'text'">
                 <button mat-icon-button matSuffix (click)="hide1 = !hide1">
                     <mat-icon>{{hide1 ? 'visibility_off' : 'visibility'}}</mat-icon>
                 </button>
+                <mat-error *ngIf="myForm.hasError('required', 'password')">
+                    Please enter your newpassword
+                </mat-error>
             </mat-form-field>
             <mat-form-field appearance="outline" class="full-width">
                 <mat-label>Confirm your password</mat-label>
-                <input [disabled]="loading" [(ngModel)]="registry.confirmPassword" matInput
-                    [type]="hide ? 'password' : 'text'">
+                <input [disabled]="loading" [(ngModel)]="registry.confirmPassword" formControlName="confirmPassword" [errorStateMatcher]="matcher"
+                    matInput [type]="hide ? 'password' : 'text'">
                 <button mat-icon-button matSuffix (click)="hide = !hide">
                     <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                 </button>
+                <mat-error *ngIf="myForm.hasError('notSame')">
+                    Passwords do not match
+                </mat-error>
             </mat-form-field>
+            </form>
         </div>
 
         <div>
