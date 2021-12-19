@@ -9,6 +9,7 @@ import { RegisterLoginComponent } from '../register-login/register-login.compone
 })
 export class LoginUserComponent implements OnInit {
 
+  loading = false;
   hide = true;
 
   constructor(public dialog: MatDialog) { }

@@ -4,29 +4,39 @@
     <div mat-dialog-content>
         <div class="register-name">
             <mat-form-field appearance="outline" class="full-width">
-                <mat-label>First Name *</mat-label>
-                <input [disabled]="loading" matInput placeholder="First Name">
+                <mat-label>User Name *</mat-label>
+                <input [disabled]="loading" [(ngModel)]="registry.userName" matInput placeholder="User Name">
                 <!-- <mat-hint>Please enter a name</mat-hint> -->
             </mat-form-field>
             <mat-form-field appearance="outline" class="full-width">
-                <mat-label>Last Name *</mat-label>
-                <input [disabled]="loading" matInput placeholder="Last Name">
-                <!-- <mat-hint>Please enter a name</mat-hint> -->
+                <mat-label>Enter your password</mat-label>
+                <input [disabled]="loading" [(ngModel)]="registry.password" matInput
+                    [type]="hide ? 'password' : 'text'">
+                <button mat-icon-button matSuffix (click)="hide1 = !hide1">
+                    <mat-icon>{{hide1 ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Confirm your password</mat-label>
+                <input [disabled]="loading" [(ngModel)]="registry.confirmPassword" matInput
+                    [type]="hide ? 'password' : 'text'">
+                <button mat-icon-button matSuffix (click)="hide = !hide">
+                    <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
             </mat-form-field>
         </div>
 
         <div>
-            <form>
-                <mat-form-field appearance="outline" class="full-width">
-                    <mat-label>E-Mail *</mat-label>
-                    <input [disabled]="loading" type="email" matInput placeholder="pat@example.com">
-                    <!-- <mat-hint>Please enter a name</mat-hint> -->
-                </mat-form-field>
-            </form>
+            <mat-form-field appearance="outline" class="full-width">
+                <mat-label>E-Mail *</mat-label>
+                <input [disabled]="loading" [(ngModel)]="registry.email" type="email" matInput
+                    placeholder="pat@example.com">
+                <!-- <mat-hint>Please enter a name</mat-hint> -->
+            </mat-form-field>
         </div>
     </div>
     <div mat-dialog-actions>
         <button mat-button (click)="dialogRef.close();">Cancel</button>
-        <button mat-button cdkFocusInitial>Ok</button>
+        <button mat-button cdkFocusInitial (click)="registerUser()">Save</button>
     </div>
 </div>
