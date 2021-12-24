@@ -45,16 +45,16 @@ export class RegisterLoginComponent implements OnInit {
 
   async onSignUp(): Promise<void> {
 
-    this.loading = true;
+    /* this.loading = true;
     if(this.signUpForm.valid){
-      //try{
+      try{
         const credentials = await this.authService.signUp(this.signUpForm.value);
         this.dialogRef.close(credentials);
         this.loading = false;
-      /* } catch(error: any){
+      } catch(error: any){
         if(error.code === `authService/email-already-in-use`) this.msg.show('Email already in Use');
         else this.msg.show(error.message);
-      } */
-    }
+      }
+    } */
   }
 }

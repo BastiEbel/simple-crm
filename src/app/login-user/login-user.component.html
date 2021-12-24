@@ -9,11 +9,14 @@
             </mat-toolbar>
             <mat-form-field class="mt-32" appearance="fill">
                 <mat-label>E-Mail</mat-label>
-                <input matInput placeholder="E-mail" formControlName="email" required type="email">
+                <input matInput placeholder="E-mail address" formControlName="email" type="email"/>
+                <mat-error *ngIf="email?.errors?.['required']"> Email is required</mat-error>
+                <mat-error *ngIf="email?.errors?.['email']"> Please enter a correct email format</mat-error>
             </mat-form-field>
             <mat-form-field appearance="fill">
                 <mat-label>Enter your password</mat-label>
-                <input matInput [type]="hide ? 'password' : 'text'" formControlName="password" required>
+                <input matInput [type]="hide ? 'password' : 'text'" formControlName="password" required/>
+                <mat-error *ngIf="password?.errors?.['required']"> Password is required</mat-error>
                 <button mat-icon-button matSuffix (click)="hide = !hide">
                     <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                 </button>

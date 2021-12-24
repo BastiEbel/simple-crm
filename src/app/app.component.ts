@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -7,12 +7,12 @@ import { Router } from '@angular/router';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  loginActiv = false;
+  @Input() loginActiv = false;
+  @Input() opened = false;
   
   constructor(private router: Router){}
 
   ngOnInit(): void {
-    /* this.loginActiv = true;
-     this.router.navigateByUrl('/login'); */
+    this.loginActiv = true;
   }
 }

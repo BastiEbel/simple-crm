@@ -1,6 +1,6 @@
 
 import { Component, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { RegisterLoginComponent } from '../register-login/register-login.component';
@@ -13,7 +13,10 @@ import { AuthService } from '../services/auth.service';
 })
 export class LoginUserComponent implements OnInit {
 
-  signInForm: FormGroup;
+  signInForm = new FormGroup({
+    email: new FormControl('', [Validators.required, Validators.email]),
+    password: new FormControl('', Validators.required),
+  });
   loading = false;
   hide = true;
   isSignedIn = false;
@@ -23,23 +26,28 @@ export class LoginUserComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  get email(){
+    return this.signInForm.get('email');
+  }
+
+  get password(){
+    return this.signInForm.get('password');
+  }
+
   onSignOut(){
     this.dialog.open(RegisterLoginComponent);
   }
 
-  async onSignIn(): Promise<void>{
+  async onSignIn(){
     this.loading = true;
-    if(this.signInForm.valid){
-      //try{
-        const credentials = await this.authService.signUp(this.signInForm.value);
-        this.dialogRef.close(credentials);
-        this.loading = false;
-        this.router.navigateByUrl('/dashboard');
-      /* } catch(error: any){
-        if(error.code === `authService/wrong-password`) this.msg.show('Wrong Passord! Try Again.');
-        else if(error.code === 'authService/user-not-found') this.msg.show('User not found');
-      } */
+    if(!this.signInForm.valid){
+      return;
     }
+
+    const { email, password } = this.signInForm.value;
+   await this.authService.signIn(email, password).subscribe(() => {
+      this.router.navigate(['/home']);
+    })
 
   }
 }
