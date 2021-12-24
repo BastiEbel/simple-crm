@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Registry } from 'src/models/registry.class';
+import { AuthService } from '../services/auth.service';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -20,15 +20,14 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 })
 export class RegisterLoginComponent implements OnInit {
 
-  myForm: FormGroup;
+  signUpForm: FormGroup;
   matcher = new MyErrorStateMatcher();
-  registry = new Registry();
   loading = false;
   hide = true;
   hide1 = true;
 
-  constructor(public dialogRef: MatDialogRef<RegisterLoginComponent>, private firestore: AngularFirestore, private formBuilder: FormBuilder) { 
-    this.myForm = this.formBuilder.group({
+  constructor(public dialogRef: MatDialogRef<RegisterLoginComponent>, public authService: AuthService, private formBuilder: FormBuilder) { 
+    this.signUpForm = this.formBuilder.group({
       password: ['', [Validators.required]],
       confirmPassword: ['']
     }, { validator: this.checkPasswords });
@@ -44,16 +43,18 @@ export class RegisterLoginComponent implements OnInit {
     return pass === confirmPass ? null : { notSame: true }
   }
 
-  registerUser() {
+  async onSignUp(): Promise<void> {
 
     this.loading = true;
-    this.firestore
-      .collection('registrys')
-      .add(this.registry.toJSON())
-      .then((result: any) => {
+    if(this.signUpForm.valid){
+      //try{
+        const credentials = await this.authService.signUp(this.signUpForm.value);
+        this.dialogRef.close(credentials);
         this.loading = false;
-        console.log('register user finished', result);
-        this.dialogRef.close();
-      });
+      /* } catch(error: any){
+        if(error.code === `authService/email-already-in-use`) this.msg.show('Email already in Use');
+        else this.msg.show(error.message);
+      } */
+    }
   }
 }

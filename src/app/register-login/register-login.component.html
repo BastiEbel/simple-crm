@@ -3,49 +3,41 @@
     <h1 mat-dialog-title>Register</h1>
     <div mat-dialog-content>
         <div class="register-name">
-            
-            <mat-form-field appearance="outline" class="full-width">
-                <mat-label>User Name *</mat-label>
-                <input [disabled]="loading" [(ngModel)]="registry.userName" matInput placeholder="User Name">
-                <!-- <mat-hint>Please enter a name</mat-hint> -->
-            </mat-form-field>
-            <form [formGroup]="myForm">
-            <mat-form-field appearance="outline" class="full-width">
-                <mat-label>Enter your password</mat-label>
-                <input [disabled]="loading" [(ngModel)]="registry.password" formControlName="password" matInput
-                    [type]="hide ? 'password' : 'text'">
-                <button mat-icon-button matSuffix (click)="hide1 = !hide1">
-                    <mat-icon>{{hide1 ? 'visibility_off' : 'visibility'}}</mat-icon>
-                </button>
-                <mat-error *ngIf="myForm.hasError('required', 'password')">
-                    Please enter your newpassword
-                </mat-error>
-            </mat-form-field>
-            <mat-form-field appearance="outline" class="full-width">
-                <mat-label>Confirm your password</mat-label>
-                <input [disabled]="loading" [(ngModel)]="registry.confirmPassword" formControlName="confirmPassword" [errorStateMatcher]="matcher"
-                    matInput [type]="hide ? 'password' : 'text'">
-                <button mat-icon-button matSuffix (click)="hide = !hide">
-                    <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-                </button>
-                <mat-error *ngIf="myForm.hasError('notSame')">
-                    Passwords do not match
-                </mat-error>
-            </mat-form-field>
-            </form>
-        </div>
+            <form [formGroup]="signUpForm">
+                <div>
+                    <mat-form-field appearance="outline" class="full-width">
+                        <mat-label>Enter your email *</mat-label>
+                        <input [disabled]="loading" formControlName="email" required type="email" matInput
+                            placeholder="pat@example.com">
+                        <!-- <mat-hint>Please enter a name</mat-hint> -->
+                    </mat-form-field>
+                </div>
 
-        <div>
-            <mat-form-field appearance="outline" class="full-width">
-                <mat-label>E-Mail *</mat-label>
-                <input [disabled]="loading" [(ngModel)]="registry.email" type="email" matInput
-                    placeholder="pat@example.com">
-                <!-- <mat-hint>Please enter a name</mat-hint> -->
-            </mat-form-field>
+                <mat-form-field appearance="outline" class="full-width">
+                    <mat-label>Enter your password</mat-label>
+                    <input [disabled]="loading" formControlName="password" matInput required [type]="hide ? 'password' : 'text'" minlength="8">
+                    <button mat-icon-button matSuffix (click)="hide1 = !hide1">
+                        <mat-icon>{{hide1 ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </button>
+                    <mat-error *ngIf="signUpForm.hasError('required', 'password')">
+                        Please enter your newpassword
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="full-width">
+                    <mat-label>Confirm your password</mat-label>
+                    <input [disabled]="loading" formControlName="confirmPassword" [errorStateMatcher]="matcher" required matInput [type]="hide ? 'password' : 'text'" minlength="8">
+                    <button mat-icon-button matSuffix (click)="hide = !hide">
+                        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </button>
+                    <mat-error *ngIf="signUpForm.hasError('notSame')">
+                        Passwords do not match
+                    </mat-error>
+                </mat-form-field>
+            </form>
         </div>
     </div>
     <div mat-dialog-actions>
         <button mat-button (click)="dialogRef.close();">Cancel</button>
-        <button mat-button cdkFocusInitial (click)="registerUser()">Save</button>
+        <button [disabled]="signUpForm.invalid" mat-button cdkFocusInitial (click)="onSignUp()">Sign in</button>
     </div>
 </div>

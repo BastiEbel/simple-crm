@@ -8,9 +8,8 @@ import { Router } from '@angular/router';
 })
 export class AppComponent implements OnInit {
   loginActiv = false;
-  constructor(private router: Router){
-
-  }
+  
+  constructor(private router: Router){}
 
   ngOnInit(): void {
     /* this.loginActiv = true;
