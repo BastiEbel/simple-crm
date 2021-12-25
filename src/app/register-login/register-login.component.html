@@ -7,15 +7,16 @@
                 <div>
                     <mat-form-field appearance="outline" class="full-width">
                         <mat-label>Enter your email </mat-label>
-                        <input [disabled]="loading" formControlName="email" required type="email" matInput
-                            placeholder="pat@example.com">
-                        <!-- <mat-hint>Please enter a name</mat-hint> -->
+                        <input value="email" formControlName="email" type="email" matInput placeholder="E-mail address"/>
+                        <mat-error *ngIf="email?.errors?.['required']"> Email is required</mat-error>
+                        <mat-error *ngIf="email?.errors?.['email']"> Please enter a correct email format</mat-error>
                     </mat-form-field>
                 </div>
 
                 <mat-form-field appearance="outline" class="full-width">
                     <mat-label>Enter your password</mat-label>
-                    <input [disabled]="loading" formControlName="password" matInput required [type]="hide ? 'password' : 'text'" minlength="8">
+                    <input formControlName="password" matInput required
+                        [type]="hide ? 'password' : 'text'" minlength="8"/>
                     <button mat-icon-button matSuffix (click)="hide1 = !hide1">
                         <mat-icon>{{hide1 ? 'visibility_off' : 'visibility'}}</mat-icon>
                     </button>
@@ -25,7 +26,8 @@
                 </mat-form-field>
                 <mat-form-field appearance="outline" class="full-width">
                     <mat-label>Confirm your password</mat-label>
-                    <input [disabled]="loading" formControlName="confirmPassword" [errorStateMatcher]="matcher" required matInput [type]="hide ? 'password' : 'text'" minlength="8">
+                    <input formControlName="confirmPassword" [errorStateMatcher]="matcher" required
+                        matInput [type]="hide ? 'password' : 'text'" minlength="8"/>
                     <button mat-icon-button matSuffix (click)="hide = !hide">
                         <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                     </button>
@@ -38,6 +40,6 @@
     </div>
     <div mat-dialog-actions>
         <button mat-button (click)="dialogRef.close();">Cancel</button>
-        <button [disabled]="signUpForm.invalid" mat-button cdkFocusInitial (click)="onSignUp()">Sign in</button>
+        <button [disabled]="signUpForm.invalid" mat-button (click)="onSignUp()">Sign in</button>
     </div>
 </div>

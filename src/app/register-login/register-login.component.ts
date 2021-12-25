@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { Registry } from 'src/models/registry.class';
+import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -20,17 +20,17 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 })
 export class RegisterLoginComponent implements OnInit {
 
-  signUpForm: FormGroup;
+  signUpForm = new FormGroup({
+    email: new FormControl('', [Validators.required, Validators.email]),
+    password: new FormControl('', Validators.required),
+    confirmPassword: new FormControl('', Validators.required)
+  });
   matcher = new MyErrorStateMatcher();
   loading = false;
   hide = true;
   hide1 = true;
 
-  constructor(public dialogRef: MatDialogRef<RegisterLoginComponent>, public authService: AuthService, private formBuilder: FormBuilder) { 
-    this.signUpForm = this.formBuilder.group({
-      password: ['', [Validators.required]],
-      confirmPassword: ['']
-    }, { validator: this.checkPasswords });
+  constructor(public dialogRef: MatDialogRef<RegisterLoginComponent>, public authService: AuthService, public formBuilder: FormBuilder, private router: Router) {
   }
 
   ngOnInit(): void {
@@ -43,18 +43,25 @@ export class RegisterLoginComponent implements OnInit {
     return pass === confirmPass ? null : { notSame: true }
   }
 
-  async onSignUp(): Promise<void> {
+  get email() {
+    return this.signUpForm.get('email');
+  }
 
-    /* this.loading = true;
-    if(this.signUpForm.valid){
-      try{
-        const credentials = await this.authService.signUp(this.signUpForm.value);
-        this.dialogRef.close(credentials);
-        this.loading = false;
-      } catch(error: any){
-        if(error.code === `authService/email-already-in-use`) this.msg.show('Email already in Use');
-        else this.msg.show(error.message);
-      }
-    } */
+  get password() {
+    return this.signUpForm.get('password');
+  }
+
+  async onSignUp(): Promise<void> {
+    this.checkPasswords;
+    this.loading = true;
+    if (!this.signUpForm.valid) {
+      return;
+    }
+
+    const { email, password  } = this.signUpForm.value;
+    await this.authService.signUp(email, password).subscribe(() => {
+      this.dialogRef.close();
+      this.router.navigate(['/dashboard']);
+    });
   }
 }

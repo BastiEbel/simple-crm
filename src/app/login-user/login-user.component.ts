@@ -19,35 +19,34 @@ export class LoginUserComponent implements OnInit {
   });
   loading = false;
   hide = true;
-  isSignedIn = false;
 
   constructor(private dialog: MatDialog, private dialogRef: MatDialogRef<LoginUserComponent>, private router: Router, private authService: AuthService) { }
 
   ngOnInit(): void {
   }
 
-  get email(){
+  get email() {
     return this.signInForm.get('email');
   }
 
-  get password(){
+  get password() {
     return this.signInForm.get('password');
   }
 
-  onSignOut(){
+  onSignOut() {
     this.dialog.open(RegisterLoginComponent);
   }
 
-  async onSignIn(){
+  async onSignIn() {
     this.loading = true;
-    if(!this.signInForm.valid){
+    if (!this.signInForm.valid) {
       return;
     }
 
     const { email, password } = this.signInForm.value;
-   await this.authService.signIn(email, password).subscribe(() => {
-      this.router.navigate(['/home']);
-    })
+    await this.authService.signIn(email, password).subscribe(() => {
+      this.router.navigate(['/dashboard']);
+    });
 
   }
 }
