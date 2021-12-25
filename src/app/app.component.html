@@ -1,5 +1,5 @@
 <mat-drawer-container class="mat-draw-container" autosize>
-  <mat-drawer #drawer class="sidenav" [opened]="false" mode="side">
+  <mat-drawer [class.d-none]="!activeMode" #drawer class="sidenav" [opened]="true" mode="side">
     <div class="logo-container">
       <img class="logo" src="./assets/img/simple-crm.png">
     </div>
@@ -15,7 +15,7 @@
   <div class="example-sidenav-content">
     <mat-toolbar color="primary">
       <mat-toolbar-row>
-        <mat-icon class="menu-icon" mat-icon-button (click)="drawer.toggle()">menu</mat-icon>
+        <mat-icon [class.d-none]="!activeMode" class="menu-icon" mat-icon-button (click)="drawer.toggle()">menu</mat-icon>
         <span>Simple CRM</span>
       </mat-toolbar-row>
     </mat-toolbar>

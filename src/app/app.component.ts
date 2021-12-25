@@ -7,12 +7,11 @@ import { Router } from '@angular/router';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  @Input() loginActiv = false;
-  @Input() opened = false;
-  
-  constructor(private router: Router){}
+  @Input() activeMode = true;
+  constructor(public router: Router){
+  }
 
   ngOnInit(): void {
-    this.loginActiv = true;
   }
+
 }

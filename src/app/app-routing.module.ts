@@ -7,7 +7,7 @@ import { LoginUserComponent } from './login-user/login-user.component';
 import { CommonModule } from '@angular/common';
 
 const routes: Routes = [
-  { path: 'login', component: LoginUserComponent },
+  { path: '', component: LoginUserComponent },
   { path: 'dashboard', component: DashboardComponent },
   { path: 'user', component: UserComponent },
   { path: 'user/:id', component: UserDetailComponent }
