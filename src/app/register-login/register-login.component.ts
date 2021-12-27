@@ -61,7 +61,7 @@ export class RegisterLoginComponent implements OnInit {
     const { email, password  } = this.signUpForm.value;
     await this.authService.signUp(email, password).subscribe(() => {
       this.dialogRef.close();
-      this.router.navigate(['/dashboard']);
+      this.router.navigate(['/home/dashboard']);
     });
   }
 }

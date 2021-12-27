@@ -1,0 +1,26 @@
+<mat-drawer-container class="mat-draw-container" autosize>
+    <mat-drawer #drawer class="sidenav" [opened]="true" mode="side">
+      <div class="logo-container">
+        <img class="logo" src="./assets/img/simple-crm.png">
+      </div>
+      <ul class="menu-items">
+        <li routerLink="/home/dashboard">
+          <mat-icon>fact_check</mat-icon>Dashboard
+        </li>
+        <li routerLink="/home/user">
+          <mat-icon>perm_identity</mat-icon>User
+        </li>
+      </ul>
+    </mat-drawer>
+    <div class="example-sidenav-content">
+      <mat-toolbar color="primary">
+        <mat-toolbar-row>
+          <mat-icon class="menu-icon" mat-icon-button (click)="drawer.toggle()">menu</mat-icon>
+          <span>Simple CRM</span>
+        </mat-toolbar-row>
+      </mat-toolbar>
+      <div class="router-container">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+  </mat-drawer-container>

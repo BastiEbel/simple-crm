@@ -20,7 +20,7 @@ export class LoginUserComponent implements OnInit {
   loading = false;
   hide = true;
 
-  constructor(private dialog: MatDialog, private dialogRef: MatDialogRef<LoginUserComponent>, private router: Router, private authService: AuthService) { }
+  constructor(private dialog: MatDialog, private dialogRef: MatDialogRef<LoginUserComponent>, public router: Router, private authService: AuthService) { }
 
   ngOnInit(): void {
   }
@@ -45,7 +45,7 @@ export class LoginUserComponent implements OnInit {
 
     const { email, password } = this.signInForm.value;
     await this.authService.signIn(email, password).subscribe(() => {
-      this.router.navigate(['/dashboard']);
+      this.router.navigateByUrl('/home');
     });
 
   }
