@@ -45,7 +45,7 @@ export class LoginUserComponent implements OnInit {
 
     const { email, password } = this.signInForm.value;
     await this.authService.signIn(email, password).subscribe(() => {
-      this.router.navigateByUrl('/home');
+      this.router.navigateByUrl('/home/dashboard');
     });
 
   }
